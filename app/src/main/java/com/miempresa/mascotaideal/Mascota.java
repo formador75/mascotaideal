@@ -10,13 +10,13 @@ public class Mascota {
     private int usuario;
     private long latData;
     private long lonData;
-    private String ubicacion;
+    private String ciudad;
 
     public Mascota() {
-
     }
 
-    public Mascota(String nombre, int edad, String raza, String tamano, int usuario, long latData, long lonData, String ubicacion) {
+    public Mascota(Long id, String nombre, int edad, String raza, String tamano, int usuario, long latData, long lonData, String ciudad) {
+        this.id = id;
         this.nombre = nombre;
         this.edad = edad;
         this.raza = raza;
@@ -24,19 +24,18 @@ public class Mascota {
         this.usuario = usuario;
         this.latData = latData;
         this.lonData = lonData;
-        this.ubicacion = ubicacion;
+        this.ciudad = ciudad;
     }
 
-    public Mascota(Long id, String nombre, int edad, String raza, String tamaño, int usuario, long latData, long lonData, String ubicacion) {
-        this.id = id;
+    public Mascota(String nombre, int edad, String raza, String tamano, int usuario, long latData, long lonData, String ciudad) {
         this.nombre = nombre;
         this.edad = edad;
         this.raza = raza;
-        this.tamano = tamaño;
+        this.tamano = tamano;
         this.usuario = usuario;
         this.latData = latData;
         this.lonData = lonData;
-        this.ubicacion = ubicacion;
+        this.ciudad = ciudad;
     }
 
     public Long getId() {
@@ -103,12 +102,12 @@ public class Mascota {
         this.lonData = lonData;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     @Override
@@ -118,11 +117,11 @@ public class Mascota {
                 ", nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", raza='" + raza + '\'' +
-                ", tamaño='" + tamano + '\'' +
+                ", tamano='" + tamano + '\'' +
                 ", usuario=" + usuario +
                 ", latData=" + latData +
                 ", lonData=" + lonData +
-                ", ubicacion='" + ubicacion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
                 '}';
     }
 }
