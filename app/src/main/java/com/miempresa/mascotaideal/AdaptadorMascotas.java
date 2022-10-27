@@ -43,7 +43,7 @@ public class AdaptadorMascotas extends RecyclerView.Adapter<AdaptadorMascotas.Ca
         holder.twraza.setText(raza);
         holder.twtamano.setText(tamano);
         holder.twciudad.setText(ciudad);
-        holder.twedad.setText(edad);
+        holder.twedad.setText(String.valueOf(edad));
 
             }
 
