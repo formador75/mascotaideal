@@ -2,7 +2,7 @@ package com.miempresa.mascotaideal;
 
 public class Mascota {
 
-    private Long id;
+    private int id;
     private String nombre;
     private int edad;
     private String raza;
@@ -15,7 +15,7 @@ public class Mascota {
     public Mascota() {
     }
 
-    public Mascota(Long id, String nombre, int edad, String raza, String tamano, int usuario, long latData, long lonData, String ciudad) {
+    public Mascota(int id, String nombre, int edad, String raza, String tamano, int usuario, long latData, long lonData, String ciudad) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
@@ -38,11 +38,11 @@ public class Mascota {
         this.ciudad = ciudad;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

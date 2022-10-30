@@ -21,14 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="225dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        android:text="Nombre"
+        app:layout_constraintEnd_toStartOf="@+id/etnombrein"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etnombrein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="210dp"
@@ -45,14 +45,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName2"
+        android:text="Raza"
+        app:layout_constraintEnd_toStartOf="@+id/etrazain"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/etrazain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="269dp"
@@ -69,14 +69,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="346dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+        android:text="Edad"
+        app:layout_constraintEnd_toStartOf="@+id/etedadin"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/etedadin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="327dp"
@@ -93,14 +93,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="418dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName3"
+        android:text="Tamano"
+        app:layout_constraintEnd_toStartOf="@+id/ettamanoin"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/ettamanoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="407dp"
@@ -117,14 +117,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="485dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName4"
+        android:text="Ciudad"
+        app:layout_constraintEnd_toStartOf="@+id/etciudadin"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/etciudadin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"
