@@ -1,5 +1,7 @@
 package com.miempresa.mascotaideal;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,15 +14,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListarMascotas extends AppCompatActivity {
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("mascotas");
     RecyclerView reciclerMacotas;
     AdaptadorMascotas adaptadorMascotas;
     List<Mascota> listaMascotas;
-    ControladorMascotas controladorMascotas;
+    ArrayList<Mascota> mascotas = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +41,7 @@ public class ListarMascotas extends AppCompatActivity {
         setContentView(R.layout.activity_listar_mascotas);
         reciclerMacotas = findViewById(R.id.reciclermascotas);
         listaMascotas = new ArrayList<>();
-        controladorMascotas = new ControladorMascotas(getApplicationContext());
+        myRef.addChildEventListener(childEventListener);
         adaptadorMascotas = new AdaptadorMascotas(listaMascotas);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         reciclerMacotas.setLayoutManager(mLayoutManager);
@@ -69,10 +82,11 @@ public class ListarMascotas extends AppCompatActivity {
                         .setPositiveButton("Si",  (dialog ,which)->{
                             //Agregar metodo borrar al controlador
                             Mascota m = listaMascotas.get(position);
+                            String nombre = m.getNombre();
                             Log.d("prueba", ""+ m.getId());
-                            controladorMascotas.elimarMascota(m);
+                            delete(position);
                             refrescarLista();
-                            Toast.makeText(getApplicationContext(), "La mascota se elimino con extio", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "La mascota se elimino con exito", Toast.LENGTH_LONG).show();
 
 
                         } )
@@ -89,6 +103,72 @@ public class ListarMascotas extends AppCompatActivity {
 
     }
 
+    private void delete(int position) {
+        // creating a variable for our Database
+        // Reference for Firebase.
+        //DatabaseReference dbref= FirebaseDatabase.getInstance().getReference().child("DataValue");
+        // we are use add listerner
+        // for event listener method
+        // which is called with query.
+        final String nombre=listaMascotas.get(position).getNombre();
+        String name =myRef.child(nombre).getKey();
+        Query query = myRef.child(name);
+        Log.d("prueba",query.toString());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // remove the value at reference
+                dataSnapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void agregarMascota(Mascota m){
+        mascotas.add(m);
+        refrescarLista();
+    }
+
+    ChildEventListener childEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            Mascota m = snapshot.getValue(Mascota.class);
+            if(m!= null) agregarMascota(m);
+
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            Mascota m = snapshot.getValue(Mascota.class);
+            if(m!= null) agregarMascota(m);
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            String mascotaid = snapshot.getKey();
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            Mascota m = snapshot.getValue(Mascota.class);
+            if(m!= null) agregarMascota(m);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -96,9 +176,8 @@ public class ListarMascotas extends AppCompatActivity {
     }
 
     public void refrescarLista(){
-        if(controladorMascotas == null) return;
-
-        listaMascotas = controladorMascotas.listarMascotas();
+        if(adaptadorMascotas == null) return;
+        listaMascotas = mascotas;
         adaptadorMascotas.setListaMascotas(listaMascotas);
         adaptadorMascotas.notifyDataSetChanged();
 
