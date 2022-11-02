@@ -9,7 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class AgregarMascota extends AppCompatActivity {
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("mascotas");
 
     ControladorMascotas controladorMascotas;
     Button agregar;
@@ -45,6 +51,7 @@ public class AgregarMascota extends AppCompatActivity {
                 m.setRaza(raza);
 
                 controladorMascotas.agregarMascota(m);
+                myRef.push().setValue(m);
 
                 Toast.makeText(getApplicationContext(), "La mascota se agrego con extio", Toast.LENGTH_LONG).show();
                 etNombre.setText("");
