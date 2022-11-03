@@ -83,7 +83,7 @@ public class ListarMascotas extends AppCompatActivity {
                             //Agregar metodo borrar al controlador
                             Mascota m = listaMascotas.get(position);
                             String nombre = m.getNombre();
-                            Log.d("prueba", ""+ m.getId());
+                            //Log.d("prueba", ""+ m.getId());
                             delete(position);
                             refrescarLista();
                             Toast.makeText(getApplicationContext(), "La mascota se elimino con exito", Toast.LENGTH_LONG).show();
@@ -103,6 +103,7 @@ public class ListarMascotas extends AppCompatActivity {
 
     }
 
+
     private void delete(int position) {
         // creating a variable for our Database
         // Reference for Firebase.
@@ -111,10 +112,16 @@ public class ListarMascotas extends AppCompatActivity {
         // for event listener method
         // which is called with query.
         final String nombre=listaMascotas.get(position).getNombre();
-        String name =myRef.child(nombre).getKey();
-        Query query = myRef.child(name);
-        Log.d("prueba",query.toString());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference name =myRef.child(nombre).getRoot();
+        String mascotaid = myRef.getKey();
+        Query applesQuery = myRef.child("-NFxBeiixG1yxKhX_ch2");
+
+
+        //sQuery query = myRef.child(name);
+        Log.d("prueba 1",nombre);
+        Log.d("prueba 2",name.toString());
+        Log.d("prueba 3",mascotaid);
+        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // remove the value at reference
@@ -128,9 +135,25 @@ public class ListarMascotas extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refrescarLista();
+    }
+
     public void agregarMascota(Mascota m){
         mascotas.add(m);
         refrescarLista();
+    }
+
+    public void refrescarLista(){
+        if(adaptadorMascotas == null) return;
+        listaMascotas = mascotas;
+        adaptadorMascotas.setListaMascotas(listaMascotas);
+        adaptadorMascotas.notifyDataSetChanged();
+
+
     }
 
     ChildEventListener childEventListener = new ChildEventListener() {
@@ -138,7 +161,6 @@ public class ListarMascotas extends AppCompatActivity {
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             Mascota m = snapshot.getValue(Mascota.class);
             if(m!= null) agregarMascota(m);
-
 
         }
 
@@ -153,6 +175,8 @@ public class ListarMascotas extends AppCompatActivity {
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
             String mascotaid = snapshot.getKey();
+            mascotas.remove(snapshot);
+            refrescarLista();
 
         }
 
@@ -169,19 +193,6 @@ public class ListarMascotas extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refrescarLista();
-    }
 
-    public void refrescarLista(){
-        if(adaptadorMascotas == null) return;
-        listaMascotas = mascotas;
-        adaptadorMascotas.setListaMascotas(listaMascotas);
-        adaptadorMascotas.notifyDataSetChanged();
-
-
-    }
 
 }
