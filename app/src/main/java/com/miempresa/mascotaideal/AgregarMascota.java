@@ -89,7 +89,7 @@ public class AgregarMascota extends AppCompatActivity {
                 m.setRaza(raza);
 
                 controladorMascotas.agregarMascota(m);
-                myRef.push().setValue(m);
+                myRef.child(nombre).setValue(m);
 
                 Toast.makeText(getApplicationContext(), "La mascota se agrego con extio", Toast.LENGTH_LONG).show();
                 etNombre.setText("");

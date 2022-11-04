@@ -85,7 +85,9 @@ public class ListarMascotas extends AppCompatActivity {
                             String nombre = m.getNombre();
                             //Log.d("prueba", ""+ m.getId());
                             delete(position);
+                            borrarMascota(m);
                             refrescarLista();
+
                             Toast.makeText(getApplicationContext(), "La mascota se elimino con exito", Toast.LENGTH_LONG).show();
 
 
@@ -112,20 +114,17 @@ public class ListarMascotas extends AppCompatActivity {
         // for event listener method
         // which is called with query.
         final String nombre=listaMascotas.get(position).getNombre();
-        DatabaseReference name =myRef.child(nombre).getRoot();
-        String mascotaid = myRef.getKey();
-        Query applesQuery = myRef.child("-NFxBeiixG1yxKhX_ch2");
+        Query applesQuery = myRef.child(nombre);
+
 
 
         //sQuery query = myRef.child(name);
-        Log.d("prueba 1",nombre);
-        Log.d("prueba 2",name.toString());
-        Log.d("prueba 3",mascotaid);
         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // remove the value at reference
                 dataSnapshot.getRef().removeValue();
+
             }
 
             @Override
@@ -140,6 +139,10 @@ public class ListarMascotas extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refrescarLista();
+    }
+
+    public void borrarMascota(Mascota m){
+        mascotas.remove(m);
     }
 
     public void agregarMascota(Mascota m){
